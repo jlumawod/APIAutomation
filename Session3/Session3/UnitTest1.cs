@@ -1,4 +1,4 @@
-namespace Session2._2_HW
+namespace Session3
 {
     [TestClass]
     public class UnitTest1
