@@ -8,7 +8,12 @@ namespace Project3.Helpers
 {
     public class CountryHelpers
     {
-        
+        /// <summary>
+        /// Returns a subtring from a country info
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static string GetSubString(string str, string info)
         {
             int index = str.IndexOf(" ");
