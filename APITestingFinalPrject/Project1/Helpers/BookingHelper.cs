@@ -14,18 +14,9 @@ namespace Project1.Helpers
 {
     public class BookingHelper
     {
-        
+
         public static async Task<HttpResponseMessage> CreateNewBooking(HttpClient client)
         {
-            // Get token
-            //var token = await BookingHelper.GetToken(client);
-
-            // Set Request Header            
-            //client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            
-            //Add Header
-            //client.DefaultRequestHeaders.Add("Accept", "application/json");
-
             //Serialize content
             var request = JsonConvert.SerializeObject(BookingData.GenerateBookingData());
             var postRequest = new StringContent(request, Encoding.UTF8, "application/json");
@@ -37,21 +28,40 @@ namespace Project1.Helpers
 
         public static async Task<HttpResponseMessage> GetBookingById(HttpClient client, int id)
         {
-            //Add Header
-            //client.DefaultRequestHeaders.Add("Accept", "application/json");
-
             //Send Request
             return await client.GetAsync(Endpoints.GetBookingById(id));            
         }
 
+        public static async Task<HttpResponseMessage> UpdateBookingById(HttpClient client, int id, BookingDetails bookingDetails)
+        {
+            //Authenticate user and get token
+            await BookingHelper.AuthenticateUser(client);
 
-        public static async Task AuthenticateUser(HttpClient client)
+            //Serialize request
+            var request = JsonConvert.SerializeObject(bookingDetails);
+            var putRequest = new StringContent(request, Encoding.UTF8, "application/json");
+
+            // Send PUT Request
+            return await client.PutAsync(Endpoints.UpdateBookingById(id), putRequest);
+        }
+
+        public static async Task<HttpResponseMessage> DeleteBooking(HttpClient client, int id)
+        {
+            
+            //Authenticate user and get token
+            await BookingHelper.AuthenticateUser(client);
+
+            //Send DELETE Request
+            return await client.DeleteAsync(Endpoints.DeleteBooking(id));            
+        }
+
+        private static async Task AuthenticateUser(HttpClient client)
         {
             // Get token
             var token = await BookingHelper.GetToken(client);
 
             // Set Request Header            
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            client.DefaultRequestHeaders.Add("Cookie", $"token={token}");
         }
 
         private static async Task<string> GetToken(HttpClient client)

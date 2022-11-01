@@ -8,6 +8,8 @@ using Project1.DataModels;
 using Project1.Resources;
 using Project1.Tests.TestData;
 using Project1.Helpers;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace Project1.Tests
 {
@@ -18,12 +20,17 @@ namespace Project1.Tests
         public readonly List<BookingModel> cleanUpList = new List<BookingModel>();
 
         [TestInitialize]
-        public void Initialize()
+        public async Task Initialize()
         {
+            //Initialize http client
             httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
+            //Authenticate user and get token
             //await BookingHelper.AuthenticateUser(httpClient);
+
+            //Set header
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");            
+            
         }
 
         [TestCleanup]
