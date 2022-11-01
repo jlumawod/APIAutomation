@@ -15,8 +15,13 @@ namespace Project1.Helpers
     public class BookingHelper
     {
 
-        public static async Task<HttpResponseMessage> CreateNewBooking(HttpClient client)
+        public static async Task<HttpResponseMessage> CreateNewBooking()
         {
+            HttpClient client = new HttpClient();
+
+            //Add Header
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
             //Serialize content
             var request = JsonConvert.SerializeObject(BookingData.GenerateBookingData());
             var postRequest = new StringContent(request, Encoding.UTF8, "application/json");
@@ -26,14 +31,24 @@ namespace Project1.Helpers
         }
 
 
-        public static async Task<HttpResponseMessage> GetBookingById(HttpClient client, int id)
+        public static async Task<HttpResponseMessage> GetBookingById(int id)
         {
+            HttpClient client = new HttpClient();
+
+            //Add Header
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
             //Send Request
             return await client.GetAsync(Endpoints.GetBookingById(id));            
         }
 
-        public static async Task<HttpResponseMessage> UpdateBookingById(HttpClient client, int id, BookingDetails bookingDetails)
+        public static async Task<HttpResponseMessage> UpdateBookingById(int id, BookingDetails bookingDetails)
         {
+            HttpClient client = new HttpClient();
+
+            //Add Header
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
             //Authenticate user and get token
             await BookingHelper.AuthenticateUser(client);
 
@@ -45,9 +60,13 @@ namespace Project1.Helpers
             return await client.PutAsync(Endpoints.UpdateBookingById(id), putRequest);
         }
 
-        public static async Task<HttpResponseMessage> DeleteBooking(HttpClient client, int id)
+        public static async Task<HttpResponseMessage> DeleteBooking(int id)
         {
-            
+            HttpClient client = new HttpClient();
+
+            //Add Header
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+
             //Authenticate user and get token
             await BookingHelper.AuthenticateUser(client);
 

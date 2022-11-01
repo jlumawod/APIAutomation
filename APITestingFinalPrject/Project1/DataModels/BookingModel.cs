@@ -12,7 +12,7 @@ namespace Project1.DataModels
     public partial class BookingModel
     {
         [JsonProperty("bookingid")]
-        public int Bookingid { get; set; }
+        public int BookingId { get; set; }
 
         [JsonProperty("booking")]
         public BookingDetails BookingDetails { get; set; }

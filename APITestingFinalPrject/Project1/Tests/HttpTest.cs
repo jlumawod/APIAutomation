@@ -23,7 +23,7 @@ namespace Project1.Tests
         {
             #region POST Request for new booking            
             //Send Post request for creating a new booking
-            var response = await BookingHelper.CreateNewBooking(httpClient);
+            var response = await BookingHelper.CreateNewBooking();
 
             //Deserialize response data
             var postBookingData = JsonConvert.DeserializeObject<BookingModel>(response.Content.ReadAsStringAsync().Result);
@@ -34,7 +34,7 @@ namespace Project1.Tests
 
             #region GET Request for retrieving booking using id of new created booking
             //Send a GET request using booking id created
-            var newResponse = await BookingHelper.GetBookingById(httpClient, postBookingData.Bookingid);
+            var newResponse = await BookingHelper.GetBookingById( postBookingData.BookingId);
             
             //Deserialize response data
             var getBookingData = JsonConvert.DeserializeObject<BookingDetails>(newResponse.Content.ReadAsStringAsync().Result);
@@ -64,7 +64,7 @@ namespace Project1.Tests
         {
             #region Create new booking            
             //Send Post request for creating a new booking
-            var response = await BookingHelper.CreateNewBooking(httpClient);
+            var response = await BookingHelper.CreateNewBooking();
 
             //Deserialize response data
             var postBookingData = JsonConvert.DeserializeObject<BookingModel>(response.Content.ReadAsStringAsync().Result);
@@ -77,7 +77,7 @@ namespace Project1.Tests
             //Get updated data
             var updatedData = BookingData.UpdatedBookingData();
             //Send PUT Request
-            var updatedResponse = await BookingHelper.UpdateBookingById(httpClient,postBookingData.Bookingid, updatedData);
+            var updatedResponse = await BookingHelper.UpdateBookingById(postBookingData.BookingId, updatedData);
 
             //Deserialize response
             var putBookingData = JsonConvert.DeserializeObject<BookingDetails>(updatedResponse.Content.ReadAsStringAsync().Result);
@@ -102,7 +102,7 @@ namespace Project1.Tests
         {
             #region Create new booking            
             //Send Post request for creating a new booking
-            var response = await BookingHelper.CreateNewBooking(httpClient);
+            var response = await BookingHelper.CreateNewBooking();
 
             //Deserialize response data
             var postBookingData = JsonConvert.DeserializeObject<BookingModel>(response.Content.ReadAsStringAsync().Result);
@@ -113,7 +113,7 @@ namespace Project1.Tests
 
             #region Delete created booking
             //Send DELETE request
-            var deleteResponse = await BookingHelper.DeleteBooking(httpClient, postBookingData.Bookingid);
+            var deleteResponse = await BookingHelper.DeleteBooking(postBookingData.BookingId);
 
             //Assert the status code is OK
             Assert.AreEqual(deleteResponse.StatusCode, HttpStatusCode.Created, "Response Failed");
@@ -127,7 +127,7 @@ namespace Project1.Tests
             var invalidId = -123;
 
             //Send GET Request using invalid id
-            var response = await BookingHelper.GetBookingById(httpClient, invalidId);
+            var response = await BookingHelper.GetBookingById(invalidId);
 
             //Assert Invalid data is Not Found
             Assert.AreEqual(response.StatusCode, HttpStatusCode.NotFound, "Status Code does not match");
