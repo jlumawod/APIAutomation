@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Project3.Helpers;
 
+[assembly: Parallelize(Workers = 4, Scope = ExecutionScope.MethodLevel)]
 namespace Project3.Test
 {
     [TestClass]
