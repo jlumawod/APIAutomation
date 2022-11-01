@@ -1,15 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Project1.DataModels;
-using Project1.Resources;
-using Project1.Tests.TestData;
-using Project1.Helpers;
-using Newtonsoft.Json.Linq;
-using System.Net.Http;
+
 
 namespace Project1.Tests
 {
